@@ -1,0 +1,22 @@
+class Solution {
+public:
+    ListNode* deleteMiddle(ListNode* head) {
+        if (!head || !head->next) return nullptr;  // If only one node, return nullptr
+
+        ListNode* slow = head;  // Moves one step at a time
+        ListNode* fast = head;  // Moves two steps at a time
+        ListNode* prev = nullptr;  // Keeps track of the node before slow
+
+        while (fast && fast->next) {
+            prev = slow;
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+
+        // Delete the middle node by skipping it
+        prev->next = slow->next;
+        delete slow;  // Free memory
+
+        return head;
+    }
+};
